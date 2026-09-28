@@ -197,6 +197,8 @@
   .wx-icon{flex:none;color:var(--accent);display:flex}
   .wx-temp{margin:0;font-family:var(--display);font-size:25px;line-height:1.1}
   .wx-temp span{font-size:18px;color:var(--grey)}
+  .wx-temp b{font-size:16px;font-family:var(--body);font-weight:700;color:var(--grey)}
+  .wx-alt{margin:2px 0 0;font-size:14px;color:var(--grey);font-weight:700}
   .wx-desc{margin:3px 0 0;font-size:14.5px;color:var(--grey)}
 
   .address{margin:26px 0 0;padding:20px;border-radius:10px;background:var(--accent-tint)}
@@ -513,7 +515,7 @@ function dayPanel(day){
       <div class="rule"></div>
     </div>
     <div class="wx" data-wx="${day.date}">
-      <p class="wx-fallback">Early October in the Ardennes usually means 13 – 15 °C by day and 5 – 7 °C at night, with rain never far away. The live forecast appears here nearer the time.</p>
+      <p class="wx-fallback">Early October in the Ardennes usually means 13 – 15 °C (55 – 59 °F) by day and 5 – 7 °C (41 – 45 °F) at night, with rain never far away. The live forecast appears here nearer the time.</p>
     </div>
     ${yours}
     <div class="timeline">${slots}</div>
@@ -577,6 +579,8 @@ function wxIcon(code){
   return `<svg viewBox="0 0 28 28" width="34" height="34" aria-hidden="true">${body}</svg>`;
 }
 
+const toF = c => Math.round(c * 9 / 5 + 32);
+
 function applyWeather(){
   if(!wxData) return;
   wxData.forEach(d => {
@@ -586,7 +590,8 @@ function applyWeather(){
     el.innerHTML =
       `<span class="wx-icon">${wxIcon(d.code)}</span>
        <div>
-         <p class="wx-temp">${Math.round(d.max)}° <span>/ ${Math.round(d.min)}°</span></p>
+         <p class="wx-temp">${Math.round(d.max)}° <span>/ ${Math.round(d.min)}°</span> <b>C</b></p>
+         <p class="wx-alt">${toF(d.max)}° / ${toF(d.min)}° F</p>
          <p class="wx-desc">${WX_TEXT[d.code] || "Mixed"}${d.rain == null ? "" : ` · ${d.rain}% chance of rain`}</p>
        </div>`;
   });
@@ -642,7 +647,7 @@ function packingPanel(){
 
     <div class="weather">
       <p class="w-title">Weather in the Ardennes, early October</p>
-      <p class="w-body">Reckon on 13 – 15 °C in the afternoon and 5 – 7 °C at night, with a fair chance of rain on any given day. It is noticeably colder than at home once the sun goes down — which matters for the camp fire on Wednesday.</p>
+      <p class="w-body">Reckon on 13 – 15 °C (55 – 59 °F) in the afternoon and 5 – 7 °C (41 – 45 °F) at night, with a fair chance of rain on any given day. It gets noticeably colder once the sun goes down.</p>
       <p style="margin:0"><a class="w-link" href="https://wunderground.com/forecast/be/herbeumont" target="_blank" rel="noopener">Check the 10-day forecast for Herbeumont</a></p>
     </div>
 
