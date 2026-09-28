@@ -353,8 +353,9 @@ const DAYS = [
       {start:"21:15",end:"22:00",time:"9.15 – 10 pm",what:"Game night 2026",note:"At the Manoir"}
     ],
     crew:[
-      {when:"1 pm shift", names:["Jurgen","Niels","Davy","Lindsey"]},
-      {when:"10 pm shift", names:["Joris","Stefano","Nadia","Maarten","Koen"]}
+      {when:"After lunch", names:["Jurgen","Niels","Davy","Lindsey"]},
+      {when:"After dinner", names:["Mickey","Stefano","Nadia","Kevin"]},
+      {when:"End of the day", names:["Joris","Maarten","Danielle R.","Koen"]}
     ]
   },
   {
@@ -383,9 +384,9 @@ const DAYS = [
       {start:"22:00",end:"23:59",time:"from 10 pm",what:"Party time",poster:true}
     ],
     crew:[
-      {when:"10 am shift", names:["Senne","Peter","Danielle R.","Katie","Elias"]},
-      {when:"1 pm shift", names:["Laura","Danny","Cori","Michael","Geert"]},
-      {when:"10 pm shift", names:["Toon","Joren","Karel","Danielle V.","Kevin"]}
+      {when:"After breakfast", names:["Senne","Peter","Katie","Elias"]},
+      {when:"After lunch", names:["Laura","Danny","Cori","Geert"]},
+      {when:"End of the day", names:["Toon","Joren","Karel","Danielle V.","Michael"]}
     ]
   },
   {
@@ -403,7 +404,7 @@ const DAYS = [
       {start:"17:00",end:"19:00",time:"5 – 7 pm",what:"Transfer of the " + FLAGS + "colleagues to the airport"}
     ],
     crew:[
-      {when:"11 am shift", names:["Ryan","Bart P.","Valentijn","Cédric","Bart V.","Mickey"]}
+      {when:"At check-out", names:["Ryan","Bart P.","Valentijn","Cédric","Bart V."]}
     ]
   }
 ];
@@ -477,7 +478,7 @@ const tabsEl = document.getElementById("tabs");
 const panelsEl = document.getElementById("panels");
 
 function dayPanel(day){
-  const mine = day.crew.filter(s => s.names.some(isMe)).map(s => s.when.replace(" shift",""));
+  const mine = day.crew.filter(s => s.names.some(isMe)).map(s => s.when.toLowerCase());
   const yours = mine.length
     ? `<div class="yours">You are a Cleaning Ranger today — <strong>${mine.join(" and ")}</strong>.</div>` : "";
 
@@ -906,11 +907,12 @@ const nameEcho = document.getElementById("nameEcho");
 function echoName(){
   if(!myName){ nameEcho.hidden = true; return; }
   const shifts = [];
-  DAYS.forEach(d => d.crew.forEach(s => { if(s.names.some(isMe)) shifts.push(`${d.label} at ${s.when.replace(" shift","")}`); }));
+  DAYS.forEach(d => d.crew.forEach(s => { if(s.names.some(isMe)) shifts.push(`${d.label}, ${s.when.toLowerCase()}`); }));
   nameEcho.hidden = false;
+  const hello = `Hello ${myName.replace(/\.$/, "")}.`;
   nameEcho.innerHTML = (shifts.length
-    ? `Hello ${myName}. You are on ranger duty ${shifts.join(", ")}.`
-    : `Hello ${myName}. No ranger shifts for you this offsite.`) +
+    ? `${hello} You are on ranger duty ${shifts.join(", ")}.`
+    : `${hello} No ranger shifts for you this offsite.`) +
     ` <button class="ghost" id="clearName" style="margin-left:4px;padding:5px 12px;font-size:13.5px">Not me</button>`;
   document.getElementById("clearName").addEventListener("click", () => {
     myName = "";
