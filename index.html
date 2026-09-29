@@ -396,7 +396,7 @@ const DAYS = [
     sub:"One tribe. One race. Many warm memories.",
     slots:[
       {start:"09:00",end:"10:00",time:"9 – 10 am",what:"Breakfast and mails"},
-      {start:"10:00",end:"11:00",time:"10 – 11 am",what:"Check out of your room and the common areas",note:"Store your luggage"},
+      {start:"10:00",end:"11:00",time:"10 – 11 am",what:"Check out of your room and the common areas",note:"Your luggage will be stored at the property until the end of the day"},
       {start:"11:00",end:"13:30",time:"11 am – 1.30 pm",what:"Teambuilding — ‘The Tribe’",note:"An adventure trail in group conquering challenges that are both creative and intense."},
       {start:"13:30",end:"14:00",time:"1.30 – 2 pm",what:"Light lunch at the lodge"},
       {start:"14:00",end:"17:00",time:"2 – 5 pm",what:"Teambuilding — ‘Go Kart on’",note:"Build a cardboard race car with your F1 team and race your colleagues to the finish line!"},
@@ -807,7 +807,8 @@ function roomsPanel(){
     </div>
     ${mine ? `<div class="yours">Your room is <strong>${mine.n}</strong> — ${mine.where}.</div>` : ""}
     ${groups}
-    <p class="plan-note">Check out of your room is Friday between 10 and 11 am.</p>
+    <p class="plan-note">Floor plans are available in the buildings themselves, so you can find your room once you are there.<br>
+    Check out of your room is Friday between 10 and 11 am.</p>
   </section>`;
 }
 
@@ -817,14 +818,14 @@ function render(){
     `<button class="tab" role="tab" id="tab-${d.id}" aria-controls="panel-${d.id}" aria-selected="false"
        data-target="${d.id}" style="--tabcolor:${d.accent}">${d.label}${d.date===today?'<span class="dot"></span>':''}</button>`
   ).join("") +
-  `<button class="tab" role="tab" id="tab-game" aria-controls="panel-game" aria-selected="false"
-     data-target="game" style="--tabcolor:${GAME.accent}">The game</button>` +
+  `<button class="tab" role="tab" id="tab-practical" aria-controls="panel-practical" aria-selected="false"
+     data-target="practical" style="--tabcolor:${PRACT.accent}">Packing</button>` +
   `<button class="tab" role="tab" id="tab-route" aria-controls="panel-route" aria-selected="false"
      data-target="route" style="--tabcolor:${PRACT.accent}">Getting there</button>` +
   `<button class="tab" role="tab" id="tab-rooms" aria-controls="panel-rooms" aria-selected="false"
      data-target="rooms" style="--tabcolor:${PRACT.accent}">Rooms</button>` +
-  `<button class="tab" role="tab" id="tab-practical" aria-controls="panel-practical" aria-selected="false"
-     data-target="practical" style="--tabcolor:${PRACT.accent}">Packing</button>`;
+  `<button class="tab" role="tab" id="tab-game" aria-controls="panel-game" aria-selected="false"
+     data-target="game" style="--tabcolor:${GAME.accent}">The game</button>`;
 
   panelsEl.innerHTML = DAYS.map(dayPanel).join("") +
     `<section role="tabpanel" id="panel-game" aria-labelledby="tab-game" hidden
