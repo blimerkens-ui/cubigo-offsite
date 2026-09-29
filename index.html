@@ -262,9 +262,7 @@
 
   .provided{margin:26px 0 0;padding:20px;border-radius:10px;background:var(--accent-tint)}
   .provided h3{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 4px}
-  .provided p{margin:0 0 12px;font-size:15px;color:var(--grey)}
-  .provided ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
-  .provided li{background:var(--white);border-radius:100px;padding:6px 15px;font-size:15.5px;font-weight:700}
+  .provided p{margin:0;font-size:16px;color:var(--rijkzwart);line-height:1.5}
 
   .room-group{margin:30px 0 0}
   .room-group h3{font-family:var(--display);font-weight:400;font-size:23px;margin:0 0 12px}
@@ -429,7 +427,6 @@ const PACKING = [
   ]}
 ];
 
-const PROVIDED = ["Towels"];
 
 let packed = {};
 try { packed = JSON.parse(localStorage.getItem("cubigo-offsite-packing") || "{}"); } catch(e) { packed = {}; }
@@ -465,7 +462,7 @@ const RULES = `
 <div class="chapter">
   <h3>Friday, 5 pm</h3>
   <p>A final vote, and the grand reveal. You find out who the Cubillionaires are, how long they held their position, what they had to do to keep it — every personal challenge and tactic comes out — and what the prize is.</p>
-  <p class="aside">No, we’re not revealing any more about the prizes!</p>
+  <p class="aside">And no, we’re not revealing the prize until the end!</p>
 </div>
 `;
 
@@ -654,8 +651,8 @@ function packingPanel(){
 
     <div class="provided">
       <h3>Already there</h3>
-      <p>No need to pack these — the lodge provides them.</p>
-      <ul>${PROVIDED.map(i => `<li>${i}</li>`).join("")}</ul>
+      <p class="provided-text">Bed linen and towels, food &amp; drinks are available, games and fun are guaranteed,
+      and a whole lot of Ardennes fresh air is included.</p>
     </div>
 
     ${groups}
@@ -832,7 +829,7 @@ function render(){
               style="--accent:${GAME.accent};--accent-tint:${GAME.tint}">
        <div class="day-head">
          <h2>Cubillionaire</h2>
-         <p class="sub">Read this once properly. You will need it.</p>
+         <p class="sub">Read this properly. You will need it.</p>
          <div class="rule"></div>
        </div>
        ${RULES}
